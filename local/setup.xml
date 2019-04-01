@@ -1,10 +1,10 @@
 <setup>
-	<block title="Bro DMSSN">
-		<text>Coniguration Page for Bro DMSSN</text>
+	<block title="CyberMenace">
+		<text>Coniguration Page for CyberMenace</text>
 	</block>
 
 	<block title="Input Controls"
-		endpoint="DMSSN/configurator" entity="setupentries">
+		endpoint="CyberMenace/configurator" entity="setupentries">
 
 		<input field="address">
 			<label>Enter Firewall or Reciever IP Address or hostname</label>
