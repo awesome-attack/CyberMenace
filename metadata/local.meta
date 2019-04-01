@@ -1,0 +1,70 @@
+[inputs/splunktcp%3A%2F%2F7789]
+owner = nobody
+version = 7.0.2
+modtime = 1495804076.987754000
+
+[app/ui]
+version = 7.0.2
+modtime = 1502387719.290054000
+
+[app/launcher]
+version = 7.0.2
+modtime = 1502387719.302069000
+
+[]
+access = read : [ * ], write : [ admin, power ]
+export = system
+version = 7.0.2
+modtime = 1496059366.496283000
+
+[inputs/SSL]
+version = 7.2.5
+modtime = 1554108065.291753000
+
+[transforms/UserAgentStrings]
+access = read : [ * ], write : [ admin, can_delete, power ]
+export = system
+owner = nobody
+version = 7.0.2
+modtime = 1502729286.355274000
+
+[transforms/SSLCERT]
+access = read : [ * ], write : [ admin, can_delete, power ]
+export = system
+owner = nobody
+version = 7.0.2
+modtime = 1502729286.355274000
+
+[datamodels/bro_root]
+owner = nobody
+version = 7.0.2
+modtime = 1504802629.328933000
+
+[models/bro_root]
+owner = nobody
+version = 7.0.2
+modtime = 1504802629.342215000
+
+[views/elsa_dashboards]
+access = read : [ * ], write : [ admin ]
+export = system
+owner = nobody
+version = 7.0.2
+modtime = 1499708287.145847000
+
+[macros/Bro]
+access = read : [ * ]
+export = system
+owner = nobody
+version = 7.0.2
+modtime = 1503492300.099602000
+
+[views/about]
+owner = nobody
+version = 7.0.2
+modtime = 1506363064.038073000
+
+[indexes/bro]
+owner = admin
+version = 7.0.2
+modtime = 1513412012.636455000

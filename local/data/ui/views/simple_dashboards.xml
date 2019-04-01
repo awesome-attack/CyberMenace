@@ -1,0 +1,245 @@
+<form>
+  <label>Simple Dashboards</label>
+  <description>Custom Dashboards 
+***USE TIME PICKER WISELY***</description>
+  <fieldset submitButton="false">
+    <input type="time" searchWhenChanged="true">
+      <label>Time Range</label>
+      <default>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="querystring" searchWhenChanged="true">
+      <label>Search Selector</label>
+      <choice value="">Empty</choice>
+      <choice value="bro_root.bro_conn_root by bro_conn_root.id_orig_h | sort - count">Connection: Source Top</choice>
+      <choice value="bro_root.bro_conn_root by bro_conn_root.id_orig_h | sort count">Connection: Source Bottom</choice>
+      <choice value="bro_root.bro_conn_root by bro_conn_root.id_resp_h | sort - count">Connection: Destination Top</choice>
+      <choice value="bro_root.bro_conn_root by bro_conn_root.id_resp_h | sort count">Connection: Destination Bottom</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.id_orig_h | sort - count">DNS: Clients Top</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.id_orig_h | sort count">DNS: Clients Bottom</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.id_resp_h | sort - count">DNS: Servers Top</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.id_resp_h | sort count">DNS: Servers Bottom</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.query | regex bro_dns_root.query!=&quot;[0-9]\.[0-9]{6}&quot; | regex bro_dns_root.query=&quot;.*\..+&quot; | search bro_dns_root.query!=&quot;-&quot; | sort - count">DNS: Requests Top</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.query | regex bro_dns_root.query!=&quot;[0-9]\.[0-9]{6}&quot; | regex bro_dns_root.query=&quot;.*\..+&quot; | search bro_dns_root.query!=&quot;-&quot; | sort count">DNS: Requests Bottom</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.answers | sort - count">DNS: Response Top</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.answers | sort count">DNS: Response Bottom</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.query | regex bro_dns_root.query!=&quot;[0-9]\.[0-9]{6}&quot; | regex bro_dns_root.query=&quot;.*\..+&quot; | search bro_dns_root.query=&quot;*in-addr.arpa&quot; AND bro_dns_root.query!=&quot;-&quot; | sort - count">DNS: NXDOMAIN Top</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.query | regex bro_dns_root.query!=&quot;[0-9]\.[0-9]{6}&quot; | regex bro_dns_root.query=&quot;.*\..+&quot; | search bro_dns_root.query=&quot;*in-addr.arpa&quot; AND bro_dns_root.query!=&quot;-&quot; | sort count">DNS: NXDOMAIN  Bottom</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.qclass_name | search bro_dns_root.qclass_name!=&quot;-&quot; | sort - count">DNS: Query Class Top</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.qtype_name | search bro_dns_root.qtype_name!=&quot;-&quot; | sort - count">DNS: Query Type</choice>
+      <choice value="bro_root.bro_dns_root by bro_dns_root.rcode_name | search bro_dns_root.rcode_name!=&quot;-&quot; | sort - count">DNS: Return Code</choice>
+      <choice value="bro_root.bro_files_root by bro_files_root.mime_type | sort - count">Files: MIME Type</choice>
+      <choice value="bro_root.bro_files_root by bro_files_root.source_type | sort - count">Files: MIME Source</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.id_orig_h | sort - count">FTP: Clients Top</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.id_orig_h | sort count">FTP: Clients Bottom</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.id_resp_h | sort - count">FTP: Servers Top</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.id_resp_h | sort count">FTP: Servers Bottom</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.mime_type | sort - count">FTP: File Type Top</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.mime_type | sort count">FTP: File Type Bottom</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.arg | sort - count">FTP: File Name Top</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.arg | sort count">FTP: File Name Bottom</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.id_resp_p | sort - count">FTP: Top Destination Ports</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.command | sort - count">FTP: Top Commands</choice>
+      <choice value="bro_root.bro_ftp_root by bro_ftp_root.ts,bro_ftp_root.id_orig_h,bro_ftp_root.id_resp_h,bro_ftp_root.id_orig_p,bro_ftp_root.id_resp_p,bro_ftp_root.arg,bro_ftp_root.command | fields - count | sort - ts">FTP: Data (Table Only)</choice>
+      <choice value="bro_root.bro_syslog_root by bro_syslog_root.ts,bro_syslog_root.id_orig_h,bro_syslog_root.id_resp_h,bro_syslog_root.id_orig_p,bro_syslog_root.id_resp_p,bro_syslog_root.message | sort - bro_syslog_root.ts">Syslog: Detected by Bro</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.id_orig_h | sort - count">HTTP: Clients Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.id_orig_h | sort count">HTTP: Clients Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.id_resp_h | sort - count">HTTP: Servers Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.id_resp_h | sort count">HTTP: Servers Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.id_resp_p | sort - count">HTTP: Server Ports Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.id_resp_p | sort count">HTTP: Server Ports Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.status_code | sort - count">HTTP: Status Code Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.status_code | sort count">HTTP: Status Code Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.resp_mime_types | sort - count">HTTP: File Type Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.resp_mime_types | sort count">HTTP: File Type Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.user_agent | sort - count">HTTP: User Agent Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.user_agent | sort count">HTTP: User Agent Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain | sort - count">HTTP: Site Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain | sort count">HTTP: Site Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;application/x-dosexec&quot; | stats count by bro_http_root.domain | sort - count">HTTP: Hosting EXE Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;application/x-dosexec&quot; | stats count by bro_http_root.domain | sort count">HTTP: Hosting EXE Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;*java*&quot; | stats count by bro_http_root.domain | sort - count">HTTP: Hosting JAVA Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;*java*&quot; | stats count by bro_http_root.domain | sort count">HTTP: Hosting JAVA Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;*x-rar*&quot; | stats count by bro_http_root.domain | sort - count">HTTP: Hosting RAR Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;*x-rar*&quot; | stats count by bro_http_root.domain | sort count">HTTP: Hosting RAR Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;*x-shockwave*&quot; | stats count by bro_http_root.domain | sort - count">HTTP: Hosting SWF Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;*x-shockwave*&quot; | stats count by bro_http_root.domain | sort count">HTTP: Hosting SWF Bottom</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;*zip*&quot; | stats count by bro_http_root.domain | sort - count">HTTP: Hosting ZIP Top</choice>
+      <choice value="bro_root.bro_http_root by bro_http_root.domain,bro_http_root.resp_mime_types,bro_http_root.ts | search bro_http_root.resp_mime_types=&quot;*zip*&quot; | stats count by bro_http_root.domain | sort count">HTTP: Hosting ZIP Bottom</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.id_orig_h | sort - count">IRC: Source Address Top</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.id_orig_h | sort count">IRC: Source Address Bottom</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.id_resp_h | sort - count">IRC: Destination Address Top</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.id_resp_h | sort count">IRC: Destination Address Bottom</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.id_resp_p | sort - count">IRC: Destination Port Top</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.id_resp_p | sort count">IRC: Destination Port Bottom</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.dcc_mime_type | sort - count">IRC: File Type Top</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.dcc_mime_type | sort count">IRC: File Type Bottom</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.dcc_file_name | sort - count">IRC: File Name Bottom</choice>
+      <choice value="bro_root.bro_irc_root by bro_irc_root.dcc_file_name | sort count">IRC: File Name Bottom</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.id_orig_h | sort - count">Kerberos: Source Address Top</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.id_orig_h | sort count">Kerberos: Source Address Bottom</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.id_resp_h | sort - count">Kerberos: Destination Address Top</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.id_resp_h | sort count">Kerberos: Destination Address Bottom</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.id_resp_p | sort - count">Kerberos: Destination Ports Top</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.id_resp_p | sort count">Kerberos: Destination Ports Bottom</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.request_type | sort - count">Kerberos: Request Type Top</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.request_type | sort count">Kerberos: Request Type Bottom</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.client | sort - count">Kerberos: Clients Top</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.client | sort count">Kerberos: Clients Bottom</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.service | sort - count">Kerberos: Service Top</choice>
+      <choice value="bro_root.bro_kerberos_root by bro_kerberos_root.service | sort count">Kerberos: Service Bottom</choice>
+      <choice value="bro_root.bro_notice_root by bro_notice_root.id_orig_h | sort - count">Notice: Source Address Top</choice>
+      <choice value="bro_root.bro_notice_root by bro_notice_root.id_orig_h | sort count">Notice: Source Address Bottom</choice>
+      <choice value="bro_root.bro_notice_root by bro_notice_root.id_resp_h | sort - count">Notice: Destination Address Top</choice>
+      <choice value="bro_root.bro_notice_root by bro_notice_root.id_resp_h | sort count">Notice: Destination Address Bottom</choice>
+      <choice value="bro_root.bro_notice_root by bro_notice_root.note | sort - count">Notice: Notice Type Top</choice>
+      <choice value="bro_root.bro_notice_root by bro_notice_root.note | sort count">Notice: Notice Type Bottom</choice>
+      <choice value="bro_root.bro_pe_root by bro_pe_root.machine | sort - count">PE: Machine Architecture</choice>
+      <choice value="bro_root.bro_pe_root by bro_pe_root.subsystem | sort - count">PE: Subsystem</choice>
+      <choice value="bro_root.bro_pe_root by bro_pe_root.is_exe | sort - count">PE: IS_EXE</choice>
+      <choice value="bro_root.bro_pe_root by bro_pe_root.is_64bit | sort - count">PE: IS_64BIT</choice>
+      <choice value="bro_root.bro_pe_root by bro_pe_root.section_names | sort - count">PE: Section Names</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.id_orig_h | sort - count">SMTP: Source Address Top</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.id_orig_h | sort count">SMTP: Source Address Bottom</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.id_resp_h | sort - count">SMTP: Destination Address Top</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.id_resp_h | sort count">SMTP: Destination Address Bottom</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.id_resp_p | sort count">SMTP: Destination Ports Top</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.subject | sort - count">SMTP: Subjects Top</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.subject | sort count">SMTP: Subjects Bottom</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.mailfrom | sort - count">SMTP: Sender Top</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.mailfrom | sort count">SMTP: Sender Bottom</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.recipients | sort - count">SMTP: Recipient Top</choice>
+      <choice value="bro_root.bro_smtp_root by bro_smtp_root.recipients | sort count">SMTP: Recipient Top</choice>
+      <choice value="bro_root.bro_software_root by bro_software_root.src_ip | sort - count">SOFTWARE: Source Top</choice>
+      <choice value="bro_root.bro_software_root by bro_software_root.src_ip | sort count">SOFTWARE: Source Bottom</choice>
+      <choice value="bro_root.bro_software_root by bro_software_root.name | sort - count">SOFTWARE: Type Top</choice>
+      <choice value="bro_root.bro_software_root by bro_software_root.name | sort count">SOFTWARE: Type Bottom</choice>
+      <choice value="bro_root.bro_software_root by bro_software_root.unparsed_version | sort - count">SOFTWARE: Full Version Top</choice>
+      <choice value="bro_root.bro_software_root by bro_software_root.unparsed_version | sort count">SOFTWARE: Full Version Top</choice>
+      <choice value="bro_root.bro_ssh_root by bro_ssh_root.id_orig_h | sort - count">SSH: Source Address Top</choice>
+      <choice value="bro_root.bro_ssh_root by bro_ssh_root.id_orig_h | sort count">SSH: Source Address Bottom</choice>
+      <choice value="bro_root.bro_ssh_root by bro_ssh_root.id_resp_h | sort - count">SSH: Destination Address Top</choice>
+      <choice value="bro_root.bro_ssh_root by bro_ssh_root.id_resp_h | sort count">SSH: Destination Address Bottom</choice>
+      <choice value="bro_root.bro_ssh_root by bro_ssh_root.id_resp_p | sort - count">SSH: Destination Port Top</choice>
+      <choice value="bro_root.bro_ssh_root by bro_ssh_root.id_resp_p | sort count">SSH: Destination Port Bottom</choice>
+      <choice value="bro_root.bro_ssh_root by bro_ssh_root.status | sort - count">SSH: Status Top</choice>
+      <choice value="bro_root.bro_ssh_root by bro_ssh_root.status | sort count">SSH: Status Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.id_orig_h | sort - count">SSL: Source Address Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.id_orig_h | sort count">SSL: Source Address Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.id_resp_h | sort - count">SSL: Destination Address Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.id_resp_h | sort count">SSL: Destination Address Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.id_resp_p | sort - count">SSL: Destination Ports Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.id_resp_p | sort count">SSL: Destination Port Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.server_name | sort - count">SSL: Hostname Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.server_name | sort count">SSL: Hostname Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.subject | sort - count">SSL: Cert Subject Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.subject | sort count">SSL: Cert Subject Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.cipher | sort - count">SSL: Cipher Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.cipher | sort count">SSL: Cipher Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.version | sort - count">SSL: Version Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.version | sort count">SSL: Version Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.version, bro_ssl_root.id_orig_h, bro_ssl_root.ts | search bro_ssl_root.version=&quot;sslv3&quot; | stats count by bro_ssl_root.id_orig_h | sort - count">SSL: SSLV3 Source Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.version, bro_ssl_root.id_orig_h, bro_ssl_root.ts | search bro_ssl_root.version=&quot;sslv3&quot; | stats count by bro_ssl_root.id_orig_h | sort count">SSL: SSLV3 Source Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.version, bro_ssl_root.id_resp_h, bro_ssl_root.ts | search bro_ssl_root.version=&quot;sslv3&quot; | stats count by bro_ssl_root.id_resp_h | sort - count">SSL: SSLV3 Destination Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.version, bro_ssl_root.id_resp_h, bro_ssl_root.ts | search bro_ssl_root.version=&quot;sslv3&quot; | stats count by bro_ssl_root.id_resp_h | sort count">SSL: SSLV3 Destination Bottom</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.version, bro_ssl_root.server_name, bro_ssl_root.ts | search bro_ssl_root.version=&quot;sslv3&quot; | stats count by bro_ssl_root.server_name | sort - count">SSL: SSLV3 Hostname Top</choice>
+      <choice value="bro_root.bro_ssl_root by bro_ssl_root.version, bro_ssl_root.server_name, bro_ssl_root.ts | search bro_ssl_root.version=&quot;sslv3&quot; | stats count by bro_ssl_root.server_name | sort count">SSL: SSLV3 Hostname Bottom</choice>
+      <choice value="bro_root.bro_weird_root by bro_weird_root.id_orig_h | sort - count">Weird: Source Address Top</choice>
+      <choice value="bro_root.bro_weird_root by bro_weird_root.id_orig_h | sort count">Weird: Source Address Bottom</choice>
+      <choice value="bro_root.bro_weird_root by bro_weird_root.id_resp_h | sort - count">Weird: Destination Address Top</choice>
+      <choice value="bro_root.bro_weird_root by bro_weird_root.id_resp_h | sort count">Weird: Destination Address Bottom</choice>
+      <choice value="bro_root.bro_weird_root by bro_weird_root.name | sort - count">Weird: Types Top</choice>
+      <choice value="bro_root.bro_weird_root by bro_weird_root.name | sort count">Weird: Types Bottom</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_version | sort - count">X509: Certificate Version Top</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_version | sort count">X509: Certificate Version Bottom</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_key_length | sort - count">X509: Cert Key Length Top</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_key_length | sort count">X509: Cert Key Length Bottom</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_serial | sort - count">X509: Certificate Serial Top</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_serial | sort count">X509: Certificate Serial Bottom</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_subject | sort - count">X509: Certificate Subject Top</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_subject | sort count">X509: Certificate Subject Bottom</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_issuer | sort - count">X509: Certificate Issuer Top</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_issuer | sort count">X509: Certificate Issuer Bottom</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_key_alg | sort - count">X509: Cert Key Algorithm Top</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_key_alg | sort count">X509: Cert Key Algorithm Bottom</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_sig_alg | sort - count">X509: Cert Sig Algorithm Top</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_sig_alg | sort count">X509: Cert Sig Algorithm Bottom</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_key_type | sort - count">X509: Certificate Key Type Top</choice>
+      <choice value="bro_root.bro_x509_root by bro_x509_root.certificate_key_type | sort count">X509: Certificate Key Type Bottom</choice>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>Search Results Stats</title>
+      <table>
+        <search>
+          <query>| tstats count from datamodel=$querystring$</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="drilldown">cell</option>
+        <drilldown>
+          <set token="values">$click.value$</set>
+        </drilldown>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Search Results Chart</title>
+      <chart>
+        <search>
+          <query>| tstats count from datamodel=$querystring$ limit=50</query>
+          <earliest>$earliest$</earliest>
+          <latest>$latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">45</option>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.placement">none</option>
+        <drilldown>
+          <set token="values">$click.value$</set>
+        </drilldown>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <input type="text" token="values" searchWhenChanged="true">
+        <label>Custom Search</label>
+      </input>
+      <event>
+        <title>Custom Search</title>
+        <search>
+          <query>index::bro $values$ | fields *</query>
+          <earliest>0</earliest>
+          <latest></latest>
+        </search>
+        <option name="list.drilldown">none</option>
+      </event>
+    </panel>
+  </row>
+</form>

@@ -1,0 +1,19 @@
+<setup>
+	<block title="Bro DMSSN">
+		<text>Coniguration Page for Bro DMSSN</text>
+	</block>
+
+	<block title="Input Controls"
+		endpoint="DMSSN/configurator" entity="setupentries">
+
+		<input field="address">
+			<label>Enter Firewall or Reciever IP Address or hostname</label>
+			<type>receiver</type>
+		</input>
+
+		<input field="port">
+			<label>Enter Port for Firewall or Reciever</label>
+			<type>rport</type>
+		</input>
+	</block>
+</setup>
